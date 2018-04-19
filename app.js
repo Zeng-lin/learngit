@@ -6,13 +6,14 @@ var logger = require('morgan');
 
 var routes = require('./routes/index');
 var usersRouter = require('./routes/users');
+/* 1新增开始 */
 var settings = require('./settings')
-var flash = require('connect-flash')
+var flash = require('connect-flash');
+/* 1新增结束 */
 var app = express();
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-
-/* 新增部分开始 */
+/* 2新增开始 */
 app.use(session({
   secret: settings.cookieSecret,
   key: settings.db,//cookie name
@@ -23,19 +24,19 @@ app.use(session({
     port: settings.port
   })
 }));
-app.use(flash())
-/* 新增部分结束 */
+/* 2新增结束 */
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+/* 3新增开始 */
+app.use(flash());
+/* 3新增结束 */
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use('/', routes);
+// 更改routes渲染写法
 routes(app)
 app.use('/users', usersRouter);
 
