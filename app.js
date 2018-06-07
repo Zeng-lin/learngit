@@ -27,6 +27,7 @@ app.use(session({
 /* 2新增结束 */
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// 设置模板引擎为ejs
 app.set('view engine', 'ejs');
 /* 3新增开始 */
 app.use(flash());
